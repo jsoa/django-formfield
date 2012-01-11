@@ -1,0 +1,169 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; django-formfield 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-formfield 0.1 documentation" href="index.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-formfield 0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Getting Started</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="reference/index.html" title="Reference" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="installation.html" title="Installation" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#form-within-a-form-within-a-form-within-a-form-within-a-form">Form within a form within a form within a form within a form.....</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>django-formfield is a form field that accepts a django form as its first argument, and validates
+as well as render&#8217;s each form field as expected. Yes a form within a form, <em>within a dream</em>? There
+are two types of fields available, <a class="reference internal" href="reference/api.html#api-formfield"><em>FormField</em></a> and <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a>. For
+<a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> the data is stored in json. For <a class="reference internal" href="reference/api.html#api-formfield"><em>FormField</em></a> data is simply
+returned as a python dictionary (form.cleaned_data)</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+
+<span class="kn">from</span> <span class="nn">formfield</span> <span class="kn">import</span> <span class="n">ModelFormField</span>
+
+<span class="k">class</span> <span class="nc">PersonMetaForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;female&#39;</span><span class="p">)),</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="n">meta_info</span> <span class="o">=</span> <span class="n">ModelFormField</span><span class="p">(</span><span class="n">PersonMetaForm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which will result in something like this (using the admin)</p>
+<img alt="_images/ss001.png" src="_images/ss001.png" />
+<p>The <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> is automatically set to <cite>null=False</cite>, <cite>blank=False</cite>, this is
+because validation is done on the inner form. As a result you will see something like the
+following if we hit save on the change form:</p>
+<img alt="_images/ss002.png" src="_images/ss002.png" />
+<p>If we supply the change for valid data you should get a python dictionary when retreiving
+the data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">meta_info</span>
+<span class="go">{u&#39;age&#39;: 12, u&#39;sex&#39;: u&#39;1&#39;}</span>
+</pre></div>
+</div>
+<p>The form is the only thing forcing input of the expected values, behind the scenes the
+data is being serialized into json. Therefore on the python level we can supply meta_info
+any valid json::</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sample_app.models</span> <span class="kn">import</span> <span class="n">Person</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;some&#39;</span><span class="p">:</span> <span class="s">&#39;thing&#39;</span><span class="p">,</span> <span class="s">&#39;is&#39;</span><span class="p">:</span> <span class="s">&#39;wrong&#39;</span><span class="p">,</span> <span class="s">&#39;here&#39;</span><span class="p">:</span> <span class="s">&#39;help!&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;Joan&quot;</span><span class="p">,</span> <span class="n">meta_info</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">meta_info</span>
+<span class="go">{&#39;is&#39;: &#39;wrong&#39;, &#39;some&#39;: &#39;thing&#39;, &#39;here&#39;: &#39;help!&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If the form field is being made available via a form change, such as the admin, any
+unexpected value will be overriden by what the form returns . For example, the
+PersonMetaForm only expects <cite>age</cite> and <cite>sex</cite>, so none of the values above
+(&#8216;is&#8217;, &#8216;some&#8217; and &#8216;here&#8217;) match and will be overridden when the form submitted.</p>
+<p class="last">We can however, make the field hidden or readonly and use it like above.</p>
+</div>
+</div>
+<div class="section" id="form-within-a-form-within-a-form-within-a-form-within-a-form">
+<h2>Form within a form within a form within a form within a form.....<a class="headerlink" href="#form-within-a-form-within-a-form-within-a-form-within-a-form" title="Permalink to this headline">¶</a></h2>
+<p>Sure its possible..</p>
+<img alt="_images/ss003.png" src="_images/ss003.png" />
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, Jose Soares.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Getting Started
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

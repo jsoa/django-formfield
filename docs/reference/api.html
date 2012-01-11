@@ -1,0 +1,192 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; django-formfield 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="django-formfield 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Reference" href="index.html" />
+    <link rel="prev" title="Reference" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-formfield 0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>API</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="index.html" title="Reference" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">API</a></li>
+</ul>
+</li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="../search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api">
+<span id="id1"></span><h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="formfield">
+<span id="api-formfield"></span><h2>FormField<a class="headerlink" href="#formfield" title="Permalink to this headline">¶</a></h2>
+<p>A form field which accepts a <cite>django.forms.Form</cite> as the first argument.
+<a class="reference internal" href="#api-widget-formfield"><em>FormFieldWidget</em></a> is used as this fields widget.</p>
+<p>Example Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">formfield</span> <span class="kn">import</span> <span class="n">FormField</span>
+
+<span class="k">class</span> <span class="nc">OtherInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">other_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="n">other_info</span> <span class="o">=</span> <span class="n">FormField</span><span class="p">(</span><span class="n">OtherInfoForm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Seems odd to have a form within a form yea? Its more useful when using it with
+a model where the data is saved in json format.</p>
+</div>
+<div class="section" id="modelformfield">
+<span id="api-model-formfield"></span><h2>ModelFormField<a class="headerlink" href="#modelformfield" title="Permalink to this headline">¶</a></h2>
+<p>A model form field which accepts a <cite>django.forms.Form</cite> as the first argument.
+<a class="reference internal" href="#api-formfield"><em>FormField</em></a> is used as form field.</p>
+<p>Example Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">formfield</span> <span class="kn">import</span> <span class="n">ModelFormField</span>
+
+<span class="k">class</span> <span class="nc">MetaDataForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">alias</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Contact</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="n">meta_data</span> <span class="o">=</span> <span class="n">ModelFormField</span><span class="p">(</span><span class="n">MetaDataForm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formfieldwidget">
+<span id="api-widget-formfield"></span><h2>FormFieldWidget<a class="headerlink" href="#formfieldwidget" title="Permalink to this headline">¶</a></h2>
+<p>This is the widget used to render the output in a user friendly way. We added
+some methods to help render the output. The main method to override is the normal
+<cite>format_output</cite>, here is the default code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ret</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;&lt;ul class=&quot;formfield&quot;&gt;&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_label</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">help_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_help_text</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;li&gt;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&lt;/li&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">label</span><span class="p">,</span> <span class="n">rendered_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">field</span><span class="o">.</span><span class="n">help_text</span> <span class="ow">and</span> <span class="n">help_text</span><span class="p">))</span>
+
+<span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;/ul&gt;&#39;</span><span class="p">)</span>
+<span class="k">return</span> <span class="s">u&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It simply wraps the entire form in a &lt;ul&gt; tag with a css class of <cite>formfield</cite>, you
+can override this for more control.</p>
+<div class="section" id="extra-methods">
+<h3>Extra methods<a class="headerlink" href="#extra-methods" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="formfieldwidget-format-label">
+<h4>FormFieldWidget.format_label<a class="headerlink" href="#formfieldwidget-format-label" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="formfieldwidget-format-help-text">
+<h4>FormFieldWidget.format_help_text<a class="headerlink" href="#formfieldwidget-format-help-text" title="Permalink to this headline">¶</a></h4>
+<p>If you don&#8217;t want to override the entire method you can override <cite>format_label</cite> and
+<cite>format_help_text</cite> as well. These methods accept to arguments, the bound field and
+a counter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">format_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;&lt;label for=&quot;id_formfield_</span><span class="si">%s</span><span class="s">&quot; </span><span class="si">%s</span><span class="s">&gt;</span><span class="si">%s</span><span class="s">&lt;/label&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">counter</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">required</span> <span class="ow">and</span> <span class="s">&#39;class=&quot;required&quot;&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">format_help_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;&lt;p class=&quot;help&quot;&gt;</span><span class="si">%s</span><span class="s">&lt;/p&gt;&#39;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">help_text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, Jose Soares.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		<a href="index.html" accesskey="U">Reference</a><img src="../_static/triangle_closed.png" height="9" width="9" alt="&gt;">
+		API
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="../_static/toc.js"></script>
+  </body>
+</html>
