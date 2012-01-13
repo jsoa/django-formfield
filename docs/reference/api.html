@@ -104,7 +104,7 @@
 </pre></div>
 </div>
 <p>Seems odd to have a form within a form yea? Its more useful when using it with
-a model where the data is saved in json format.</p>
+a model where the data is serialized to json.</p>
 </div>
 <div class="section" id="modelformfield">
 <span id="api-model-formfield"></span><h2>ModelFormField<a class="headerlink" href="#modelformfield" title="Permalink to this headline">¶</a></h2>
@@ -149,19 +149,20 @@ some methods to help render the output. The main method to override is the norma
 can override this for more control.</p>
 <div class="section" id="extra-methods">
 <h3>Extra methods<a class="headerlink" href="#extra-methods" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="formfieldwidget-format-label">
-<h4>FormFieldWidget.format_label<a class="headerlink" href="#formfieldwidget-format-label" title="Permalink to this headline">¶</a></h4>
-</div>
-<div class="section" id="formfieldwidget-format-help-text">
-<h4>FormFieldWidget.format_help_text<a class="headerlink" href="#formfieldwidget-format-help-text" title="Permalink to this headline">¶</a></h4>
 <p>If you don&#8217;t want to override the entire method you can override <cite>format_label</cite> and
 <cite>format_help_text</cite> as well. These methods accept to arguments, the bound field and
-a counter:</p>
+a counter</p>
+<div class="section" id="formfieldwidget-format-label">
+<h4>FormFieldWidget.format_label<a class="headerlink" href="#formfieldwidget-format-label" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">format_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
     <span class="k">return</span> <span class="s">&#39;&lt;label for=&quot;id_formfield_</span><span class="si">%s</span><span class="s">&quot; </span><span class="si">%s</span><span class="s">&gt;</span><span class="si">%s</span><span class="s">&lt;/label&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
         <span class="n">counter</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">required</span> <span class="ow">and</span> <span class="s">&#39;class=&quot;required&quot;&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">format_help_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formfieldwidget-format-help-text">
+<h4>FormFieldWidget.format_help_text<a class="headerlink" href="#formfieldwidget-format-help-text" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">format_help_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">counter</span><span class="p">):</span>
     <span class="k">return</span> <span class="s">&#39;&lt;p class=&quot;help&quot;&gt;</span><span class="si">%s</span><span class="s">&lt;/p&gt;&#39;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">help_text</span>
 </pre></div>
 </div>

@@ -29,7 +29,7 @@ Example Usage::
         
     
 Seems odd to have a form within a form yea? Its more useful when using it with 
-a model where the data is saved in json format.
+a model where the data is serialized to json.
 
 
 .. _api_model_formfield:
@@ -85,19 +85,24 @@ can override this for more control.
 Extra methods
 -------------
 
+If you don't want to override the entire method you can override `format_label` and 
+`format_help_text` as well. These methods accept to arguments, the bound field and 
+a counter
+
 FormFieldWidget.format_label
 ****************************
 
-FormFieldWidget.format_help_text
-********************************
-
-If you don't want to override the entire method you can override `format_label` and 
-`format_help_text` as well. These methods accept to arguments, the bound field and 
-a counter::
+::
 
     def format_label(self, field, counter):
         return '<label for="id_formfield_%s" %s>%s</label>' % (
             counter, field.field.required and 'class="required"', field.label)
+
+
+FormFieldWidget.format_help_text
+********************************
+
+::
             
     def format_help_text(self, field, counter):
         return '<p class="help">%s</p>' % field.help_text

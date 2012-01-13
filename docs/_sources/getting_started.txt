@@ -34,20 +34,20 @@ Which will result in something like this (using the admin)
 
 .. image:: ss001.png
 
-The :ref:`api_model_formfield` is automatically set to `null=False`, `blank=False`, this is 
+The :ref:`api_model_formfield` is automatically set to `null=True`, `blank=True`, this is 
 because validation is done on the inner form. As a result you will see something like the 
 following if we hit save on the change form:
 
 .. image:: ss002.png
 
-If we supply the change for valid data you should get a python dictionary when retreiving 
+If we supply the change for valid data you should get a python dictionary when retrieving 
 the data::
 
     >>> person = Person.objects.get(pk=1)
     >>> person.meta_info
     {u'age': 12, u'sex': u'1'}
     
-The form is the only thing forcing input of the expected values, behind the scenes the 
+The form is the only thing forcing valid input, behind the scenes the 
 data is being serialized into json. Therefore on the python level we can supply meta_info 
 any valid json:::
 
@@ -59,12 +59,13 @@ any valid json:::
     
 .. note::
 
-    If the form field is being made available via a form change, such as the admin, any 
-    unexpected value will be overriden by what the form returns . For example, the 
-    PersonMetaForm only expects `age` and `sex`, so none of the values above 
+    If the form field is being made available via a change form, such as the admin, any 
+    unexpected value will be overridden by what the form returns . For example, the 
+    `PersonMetaForm` above only expects `age` and `sex`, so none of the values above 
     ('is', 'some' and 'here') match and will be overridden when the form submitted. 
     
-    We can however, make the field hidden or readonly and use it like above.
+    We can however, make the field hidden or readonly and use it to supply any
+    valid json, but its not really the intension of this app.
     
 Form within a form within a form within a form within a form.....
 =================================================================

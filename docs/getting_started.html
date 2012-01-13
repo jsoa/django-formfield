@@ -111,18 +111,18 @@ returned as a python dictionary (form.cleaned_data)</p>
 </div>
 <p>Which will result in something like this (using the admin)</p>
 <img alt="_images/ss001.png" src="_images/ss001.png" />
-<p>The <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> is automatically set to <cite>null=False</cite>, <cite>blank=False</cite>, this is
+<p>The <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> is automatically set to <cite>null=True</cite>, <cite>blank=True</cite>, this is
 because validation is done on the inner form. As a result you will see something like the
 following if we hit save on the change form:</p>
 <img alt="_images/ss002.png" src="_images/ss002.png" />
-<p>If we supply the change for valid data you should get a python dictionary when retreiving
+<p>If we supply the change for valid data you should get a python dictionary when retrieving
 the data:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">meta_info</span>
 <span class="go">{u&#39;age&#39;: 12, u&#39;sex&#39;: u&#39;1&#39;}</span>
 </pre></div>
 </div>
-<p>The form is the only thing forcing input of the expected values, behind the scenes the
+<p>The form is the only thing forcing valid input, behind the scenes the
 data is being serialized into json. Therefore on the python level we can supply meta_info
 any valid json::</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sample_app.models</span> <span class="kn">import</span> <span class="n">Person</span>
@@ -134,11 +134,12 @@ any valid json::</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>If the form field is being made available via a form change, such as the admin, any
-unexpected value will be overriden by what the form returns . For example, the
-PersonMetaForm only expects <cite>age</cite> and <cite>sex</cite>, so none of the values above
+<p>If the form field is being made available via a change form, such as the admin, any
+unexpected value will be overridden by what the form returns . For example, the
+<cite>PersonMetaForm</cite> above only expects <cite>age</cite> and <cite>sex</cite>, so none of the values above
 (&#8216;is&#8217;, &#8216;some&#8217; and &#8216;here&#8217;) match and will be overridden when the form submitted.</p>
-<p class="last">We can however, make the field hidden or readonly and use it like above.</p>
+<p class="last">We can however, make the field hidden or readonly and use it to supply any
+valid json, but its not really the intension of this app.</p>
 </div>
 </div>
 <div class="section" id="form-within-a-form-within-a-form-within-a-form-within-a-form">
