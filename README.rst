@@ -59,13 +59,13 @@ Example
 
 Which will result in something like this (using the admin)
 
-.. image:: https://github.com/josesoa/django-formfield/raw/master/docs/_images/ss001.png
+.. image:: https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss001.png
 
 The `ModelFormField` is automatically set to `null=True`, `blank=True`, this is 
 because validation is done on the inner form. As a result you will see something like the 
 following if we hit save on the change form:
 
-.. image:: https://github.com/josesoa/django-formfield/raw/master/docs/_images/ss002.png
+.. image:: https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss002.png
 
 If we supply the change for valid data you should get a python dictionary when retrieving 
 the data::
@@ -99,4 +99,4 @@ Form within a form within a form within a form within a form.....
 
 Sure its possible..
 
-.. image:: https://github.com/josesoa/django-formfield/raw/master/docs/_images/ss003.png
+.. image:: https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss003.png
