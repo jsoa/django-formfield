@@ -23,7 +23,7 @@ DESC = " ".join(__import__('formfield').__doc__.splitlines()).strip()
 setup(
     name = "django-formfield",
     version = __import__('formfield').get_version().replace(' ', '-'),
-    url = 'http://github.com/josesoa/django-formfield/',
+    url = 'http://github.com/jsoa/django-formfield/',
     author = 'Jose Soares',
     author_email = 'jose@linux.com',
     description = DESC,
