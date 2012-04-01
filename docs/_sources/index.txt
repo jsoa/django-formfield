@@ -11,11 +11,17 @@ Contents:
 .. toctree::
    :maxdepth: 2
    :glob:
-   
+
    installation
    getting_started
-   
+
    reference/index
+
+Contributing
+============
+
+* `Source <https://github.com/jsoa/django-formfield>`_
+* `Issues <https://github.com/jsoa/django-formfield/issues>`_
 
 
 Indices and tables
