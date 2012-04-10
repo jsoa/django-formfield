@@ -1,0 +1,162 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Django-formfield</title>
+  <meta name="description" content="django-formfield is a form field that accepts a django form as its first argument">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Django-formfield</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">django-formfield is a form field that accepts a django form as its first argument</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/jsoa/django-formfield/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/jsoa/django-formfield/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/jsoa/django-formfield" class="code">fork Django-formfield on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1></h1>
+
+<h1>Installation</h1>
+
+<p>Installation is easy using <code>pip</code> or <code>easy_install</code>.</p>
+
+<pre><code>    pip install django-formfield
+</code></pre>
+
+<p>or</p>
+
+<pre><code>    easy_install django-formfield
+</code></pre>
+
+<h1>Add to installed apps</h1>
+
+<div class="highlight">
+<pre>    <span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">...</span>
+        <span class="n">formfield</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">)</span>
+</pre>
+</div>
+
+
+<h1></h1>
+
+<h1>Getting Started</h1>
+
+<p>django-formfield is a form field that accepts a django form as its first argument, and validates 
+as well as render's each form field as expected. Yes a form within a form, <em>within a dream</em>? There 
+are two types of fields available, <code>FormField</code> and <code>ModelFormField</code>. For 
+<code>ModelFormField</code> the data is stored in json. For <code>FormField</code> data is simply 
+returned as a python dictionary (form.cleaned_data)</p>
+
+<h1>Example</h1>
+
+<div class="highlight">
+<pre>    <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+    <span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+
+    <span class="kn">from</span> <span class="nn">formfield</span> <span class="kn">import</span> <span class="n">ModelFormField</span>
+
+    <span class="k">class</span> <span class="nc">PersonMetaForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+        <span class="n">sex</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="s">'male'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'female'</span><span class="p">)),</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+    <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+        <span class="n">meta_info</span> <span class="o">=</span> <span class="n">ModelFormField</span><span class="p">(</span><span class="n">PersonMetaForm</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>Which will result in something like this (using the admin)</p>
+
+<p><img src="https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss001.png" alt="ss001"></p>
+
+<p>The <code>ModelFormField</code> is automatically set to <code>null=True</code>, <code>blank=True</code>, this is 
+because validation is done on the inner form. As a result you will see something like the 
+following if we hit save on the change form:</p>
+
+<p><img src="https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss002.png" alt="ss002"></p>
+
+<p>If we supply the change for valid data you should get a python dictionary when retrieving 
+the data::</p>
+
+<pre><code>&gt;&gt;&gt; person = Person.objects.get(pk=1)
+&gt;&gt;&gt; person.meta_info
+{u'age': 12, u'sex': u'1'}
+</code></pre>
+
+<p>The form is the only thing forcing valid input, behind the scenes the 
+data is being serialized into json. Therefore on the python level we can supply meta_info 
+any valid json:::</p>
+
+<pre><code>&gt;&gt;&gt; from sample_app.models import Person
+&gt;&gt;&gt; data = {'some': 'thing', 'is': 'wrong', 'here': 'help!'}
+&gt;&gt;&gt; p = Person.objects.create(name="Joan", meta_info=data)
+&gt;&gt;&gt; p.meta_info
+{'is': 'wrong', 'some': 'thing', 'here': 'help!'}
+</code></pre>
+
+<p><strong>Note</strong></p>
+
+<blockquote>
+<p>If the form field is being made available via a change form, such as the admin, any unexpected value will be overridden by what the form returns . For example, the <code>PersonMetaForm</code> above only expects <code>age</code> and <code>sex</code>, so none of the values above ('is', 'some' and 'here') match and will be overridden when the form submitted. </p>
+
+<p>We can however, make the field hidden or readonly and use it to supply any valid json, but its not really the intension of this app.</p>
+</blockquote>
+
+<h1>Form within a form within a form within a form within a form.....</h1>
+
+<p>Sure its possible..</p>
+
+<p><img src="https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss003.png" alt="ss003"></p>
+
+<h1>Read The Docs</h1>
+
+<p><a href="http://readthedocs.org/docs/django-formfield/en/latest/">http://readthedocs.org/docs/django-formfield/en/latest/</a></p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/jsoa" class="avatar"><img src="https://secure.gravatar.com/avatar/71291ed4929b119a3a2c374a42935209?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" width="48" height="48"/></a> <a href="https://github.com/jsoa">jsoa</a> maintains <a href="https://github.com/jsoa/django-formfield">Django-formfield</a></p>
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/jsoa/django-formfield/tarball/master" class="tar">tar</a><a href="https://github.com/jsoa/django-formfield/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
