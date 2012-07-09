@@ -1,6 +1,18 @@
-.. |BUILD| image:: https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
+===============
+Getting Started
+===============
+
+|BUILD|_
+
+.. |BUILD| image::
+   https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
 .. _BUILD: http://travis-ci.org/#!/jsoa/django-formfield
 
+django-formfield is a form field that accepts a django form as its first argument, and validates
+as well as render's each form field as expected. Yes a form within a form, *within a dream*? There
+are two types of fields available, `FormField` and `ModelFormField`. For
+`ModelFormField` the data is stored in json. For `FormField` data is simply
+returned as a python dictionary (form.cleaned_data)
 
 ============
 Installation
@@ -30,16 +42,6 @@ Add to installed apps
         ...
     )
 
-
-===============
-Getting Started
-===============
-
-django-formfield is a form field that accepts a django form as its first argument, and validates
-as well as render's each form field as expected. Yes a form within a form, *within a dream*? There
-are two types of fields available, `FormField` and `ModelFormField`. For
-`ModelFormField` the data is stored in json. For `FormField` data is simply
-returned as a python dictionary (form.cleaned_data)
 
 Example
 =======
