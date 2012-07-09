@@ -1,4 +1,5 @@
-.. image:: https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
+.. |BUILD| image:: https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
+.. _BUILD: http://travis-ci.org/#!/jsoa/django-formfield
 
 
 ============
