@@ -1,5 +1,4 @@
-.. |Build status| image::
-   https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
+.. image:: https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
 
 
 ============
