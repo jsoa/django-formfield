@@ -4,7 +4,7 @@ django-formfield
 __version_info__ = {
     'major': 0,
     'minor': 1,
-    'micro': 0,
+    'micro': 1,
     'releaselevel': 'final',
     'serial': 1
 }
@@ -14,7 +14,7 @@ def get_version():
     Return the formatted version information
     """
     vers = ["%(major)i.%(minor)i" % __version_info__, ]
-    
+
     if __version_info__['micro']:
         vers.append(".%(micro)i" % __version_info__)
     if __version_info__['releaselevel'] != 'final':
