@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 
 from .widgets import FormFieldWidget
 
+
 class JSONField(models.TextField):
     """
     JSONField is a generic textfield that serializes/unserializes
@@ -106,5 +107,9 @@ class ModelFormField(JSONField):
         return super(ModelFormField, self).formfield(form_class=form_class,
             form=self.form, **kwargs)
 
-
-
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^formfield\.fields\.JSONField"])
+    add_introspection_rules([], ["^formfield\.fields\.ModelFormField"])
+except ImportError:
+    pass
