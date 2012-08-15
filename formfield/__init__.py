@@ -4,7 +4,7 @@ django-formfield
 __version_info__ = {
     'major': 0,
     'minor': 1,
-    'micro': 1,
+    'micro': 2,
     'releaselevel': 'final',
     'serial': 1
 }
