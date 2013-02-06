@@ -1,6 +1,3 @@
-===============
-Getting Started
-===============
 
 |BUILD|_
 
@@ -21,6 +18,10 @@ Change Log
 * **0.1.3**
     * Fixed bug when a form's initial value evaludated to ``False``
     * pep8 related fixes
+
+===============
+Getting Started
+===============
 
 django-formfield is a form field that accepts a django form as its first argument, and validates
 as well as render's each form field as expected. Yes a form within a form, *within a dream*? There
