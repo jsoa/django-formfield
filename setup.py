@@ -6,8 +6,8 @@ from setuptools import setup, find_packages
 
 def read_file(filename):
     """Read a file into a string"""
-    path = path.abspath(path.dirname(__file__))
-    filepath = path.join(path, filename)
+    p = path.abspath(path.dirname(__file__))
+    filepath = path.join(p, filename)
     try:
         return open(filepath).read()
     except IOError:
