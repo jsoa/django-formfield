@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
@@ -17,7 +19,8 @@ class JSONField(models.TextField):
     __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
-        self.dump_kwargs = kwargs.pop('dump_kwargs', {'cls': DjangoJSONEncoder})
+        self.dump_kwargs = kwargs.pop('dump_kwargs',
+                                      {'cls': DjangoJSONEncoder})
         self.load_kwargs = kwargs.pop('load_kwargs', {})
 
         super(JSONField, self).__init__(*args, **kwargs)
@@ -64,7 +67,8 @@ class FormField(forms.MultiValueField):
         """
         data = {}
         if data_list:
-            data = dict((f.name, data_list[i] or None) for i, f in enumerate(self.form))
+            data = dict(
+                (f.name, data_list[i]) for i, f in enumerate(self.form))
 
             f = self.form.__class__(data)
             f.is_valid()
@@ -76,12 +80,15 @@ class FormField(forms.MultiValueField):
         Call the form is_valid to ensure every value supplied is valid
         """
         if not value:
-            raise ValidationError('Error found in Form Field: Nothing to validate')
+            raise ValidationError(
+                'Error found in Form Field: Nothing to validate')
 
         data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
         form = self.form.__class__(data)
         if not form.is_valid():
-            errors = striptags(", ".join(["%s (%s)" % (v, k) for k, v in form.errors.items()]))
+            error_dict = form.errors.items()
+            errors = striptags(
+                ", ".join(["%s (%s)" % (v, k) for k, v in error_dict]))
             raise ValidationError('Error(s) found: %s' % errors)
 
         # This call will ensure compress is called as expected.
