@@ -8,6 +8,20 @@ Getting Started
    https://secure.travis-ci.org/jsoa/django-formfield.png?branch=master
 .. _BUILD: http://travis-ci.org/#!/jsoa/django-formfield
 
+
+:Version: 0.1.3
+:Docs: https://django-formfield.readthedocs.org/en/latest/
+:Download: http://pypi.python.org/pypi/django-formfield/
+:Source: https://github.com/jsoa/django-formfield
+
+==========
+Change Log
+==========
+
+* **0.1.3**
+    * Fixed bug when a form's initial value evaludated to ``False``
+    * pep8 related fixes
+
 django-formfield is a form field that accepts a django form as its first argument, and validates
 as well as render's each form field as expected. Yes a form within a form, *within a dream*? There
 are two types of fields available, `FormField` and `ModelFormField`. For
