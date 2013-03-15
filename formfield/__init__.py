@@ -26,5 +26,5 @@ __version__ = get_version()
 
 try:
     from .fields import FormField, ModelFormField
-except ImportError:
+except (Exception, ):
     pass
