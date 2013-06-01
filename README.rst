@@ -1,4 +1,3 @@
-
 |BUILD|_
 
 .. |BUILD| image::
@@ -53,7 +52,7 @@ Add to installed apps
 
     INSTALLED_APPS = (
         ...
-        formfield,
+        'formfield',
         ...
     )
 
