@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from os import path
 from setuptools import setup, find_packages
+import formfield
 
 
 def read_file(filename):
@@ -22,11 +23,11 @@ def get_readme():
     return ''
 
 # Use the docstring of the __init__ file to be the description
-DESC = " ".join(__import__('formfield').__doc__.splitlines()).strip()
+DESC = " ".join(formfield.__doc__.splitlines()).strip()
 
 setup(
     name="django-formfield",
-    version=__import__('formfield').get_version().replace(' ', '-'),
+    version=formfield.get_version().replace(' ', '-'),
     url='http://github.com/jsoa/django-formfield/',
     author='Jose Soares',
     author_email='jose@linux.com',
