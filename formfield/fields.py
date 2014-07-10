@@ -84,7 +84,7 @@ class FormField(forms.MultiValueField):
                 'Error found in Form Field: Nothing to validate')
 
         data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
-        form = self.form.__class__(data)
+        self.form = form = self.form.__class__(data)
         if not form.is_valid():
             error_dict = form.errors.items()
             errors = striptags(
