@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
+
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils import simplejson as json
 from django.template.defaultfilters import striptags
 from django.core.exceptions import ValidationError
 
