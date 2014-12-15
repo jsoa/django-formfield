@@ -74,3 +74,33 @@ class FormFieldTests(TestCase):
         # Ensure the cleaned data is what we expect
         self.assertEqual(form.cleaned_data,
             {'name': 'john', 'meta_data': {'age': 12, 'sex': '1'}})
+
+        class MyFormToo(forms.Form):
+            name = forms.CharField()
+            meta_data = FormField('formfield.tests.MetaForm')
+
+        form = MyFormToo()
+        self.assertFalse(form.is_valid())
+
+        form = MyFormToo({'name': 'john', 'meta_data_0': 12, 'meta_data_1': 1})
+        self.assertTrue(form.is_bound)
+        self.assertTrue(form.is_valid())
+
+        # Ensure the cleaned data is what we expect
+        self.assertEqual(form.cleaned_data,
+            {'name': 'john', 'meta_data': {'age': 12, 'sex': '1'}})
+
+        class MyFormThree(forms.Form):
+            name = forms.CharField()
+            meta_data = FormField(lambda: MetaForm)
+
+        form = MyFormThree()
+        self.assertFalse(form.is_valid())
+
+        form = MyFormThree({'name': 'john', 'meta_data_0': 12, 'meta_data_1': 1})
+        self.assertTrue(form.is_bound)
+        self.assertTrue(form.is_valid())
+
+        # Ensure the cleaned data is what we expect
+        self.assertEqual(form.cleaned_data,
+            {'name': 'john', 'meta_data': {'age': 12, 'sex': '1'}})

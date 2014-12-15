@@ -60,7 +60,7 @@ class FormField(forms.MultiValueField):
         elif isinstance(form, basestring):
             from django.utils import module_loading
             form_class = module_loading.import_by_path(form)
-        self.form = form()
+        self.form = form_class()
 
         # Set the widget and initial data
         kwargs['widget'] = FormFieldWidget([f for f in self.form])
