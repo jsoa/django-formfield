@@ -51,6 +51,15 @@ class FormField(forms.MultiValueField):
     """The form field we can use in forms"""
 
     def __init__(self, form, **kwargs):
+        import inspect
+        if inspect.isclass(form) and issubclass(form, forms.Form):
+            form_class = form
+        elif callable(form):
+            form_class = form()
+            self.form = form_class()
+        elif isinstance(form, basestring):
+            from django.utils import module_loading
+            form_class = module_loading.import_by_path(form)
         self.form = form()
 
         # Set the widget and initial data
