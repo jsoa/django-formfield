@@ -3,10 +3,10 @@ django-formfield
 """
 __version_info__ = {
     'major': 0,
-    'minor': 2,
-    'micro': 1,
-    'releaselevel': 'final',
-    'serial': 1
+    'minor': 4,
+    'micro': 0,
+    'releaselevel': 'beta',
+    'serial': 2
 }
 
 
@@ -25,6 +25,6 @@ def get_version():
 __version__ = get_version()
 
 try:
-    from .fields import FormField, ModelFormField
+    from .fields import FormField, ModelFormField  # NOQA
 except (Exception, ):
     pass
