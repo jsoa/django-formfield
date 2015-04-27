@@ -91,3 +91,5 @@ INSTALLED_APPS = (
     'formfield',
     'sample_app',
 )
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
