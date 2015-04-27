@@ -98,12 +98,13 @@ class FormField(forms.MultiValueField):
 class ModelFormField(JSONField):
     """The json backed field we can use in our models"""
 
-    def __init__(self, form, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         This field needs to be nullable and blankable. The supplied form
         will provide the validation.
         """
-        self.form = form
+        self.form = kwargs.pop('form', None)
+
         kwargs['null'] = True
         kwargs['blank'] = True
 
