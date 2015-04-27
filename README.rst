@@ -5,7 +5,7 @@
 .. _BUILD: http://travis-ci.org/#!/jsoa/django-formfield
 
 
-:Version: 0.2
+:Version: 0.3
 :Docs: https://django-formfield.readthedocs.org/en/latest/
 :Download: http://pypi.python.org/pypi/django-formfield/
 :Source: https://github.com/jsoa/django-formfield
@@ -13,6 +13,9 @@
 ==========
 Change Log
 ==========
+
+* **0.3**
+    * Django 1.6/1.7/1.8 compatibility
 
 * **0.2**
     * Fix Django 1.5 install issue
