@@ -57,6 +57,7 @@ class FormField(forms.MultiValueField):
         # Set the widget and initial data
         kwargs['widget'] = FormFieldWidget([f for f in self.form])
         kwargs['initial'] = [f.field.initial for f in self.form]
+        kwargs.pop('max_length', None)
 
         super(FormField, self).__init__(**kwargs)
 

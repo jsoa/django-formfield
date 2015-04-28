@@ -48,4 +48,4 @@ class PersonMetaForm7(forms.Form):
 class Person(models.Model):
     name = models.CharField(max_length=255)
 
-    meta_info = ModelFormField(form=PersonMetaForm7)
+    meta_info = ModelFormField(form=PersonMetaForm1)
