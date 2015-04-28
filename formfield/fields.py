@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
+import six
+
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,13 +12,12 @@ from django.core.exceptions import ValidationError
 from .widgets import FormFieldWidget
 
 
+@six.add_metaclass(models.SubfieldBase)
 class JSONField(models.TextField):
     """
     JSONField is a generic textfield that serializes/unserializes
     the data from our form fields
     """
-
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         self.dump_kwargs = kwargs.pop('dump_kwargs',
@@ -27,7 +28,7 @@ class JSONField(models.TextField):
 
     def to_python(self, value):
 
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             try:
                 return json.loads(value, **self.load_kwargs)
             except ValueError:
@@ -37,7 +38,7 @@ class JSONField(models.TextField):
 
     def get_db_prep_value(self, value, *args, **kwargs):
 
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             return value
 
         return json.dumps(value, **self.dump_kwargs)
@@ -86,7 +87,7 @@ class FormField(forms.MultiValueField):
         data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
         form = self.form.__class__(data)
         if not form.is_valid():
-            error_dict = form.errors.items()
+            error_dict = list(form.errors.items())
             errors = striptags(
                 ", ".join(["%s (%s)" % (v, k) for k, v in error_dict]))
             raise ValidationError('Error(s) found: %s' % errors)
