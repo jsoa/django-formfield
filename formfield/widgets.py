@@ -1,4 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import six
+
 from django import forms
+
 
 class FormFieldWidget(forms.MultiWidget):
     """
@@ -44,4 +49,4 @@ class FormFieldWidget(forms.MultiWidget):
                 label, rendered_widgets[i], field.help_text and help_text))
 
         ret.append('</ul>')
-        return ''.join(ret)
+        return six.u(''.join(ret))

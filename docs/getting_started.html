@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started &mdash; django-formfield 0.1 documentation</title>
+    <title>Getting Started &mdash; django-formfield 0.3 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.1',
+        URL_ROOT:    './',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,13 +23,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="django-formfield 0.1 documentation" href="index.html" />
+    <link rel="top" title="django-formfield 0.3 documentation" href="index.html" />
     <link rel="next" title="Reference" href="reference/index.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
-  <body>
+  <body role="document">
 <div id="docstitle">
-	<p>django-formfield 0.1 documentation</p>
+	<p>django-formfield 0.3 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Getting Started</h1></div>
@@ -51,7 +50,6 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-within-a-form-within-a-form-within-a-form-within-a-form">Form within a form within a form within a form within a form.....</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
@@ -88,8 +86,8 @@
 <span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>django-formfield is a form field that accepts a django form as its first argument, and validates
 as well as render&#8217;s each form field as expected. Yes a form within a form, <em>within a dream</em>? There
-are two types of fields available, <a class="reference internal" href="reference/api.html#api-formfield"><em>FormField</em></a> and <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a>. For
-<a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> the data is stored in json. For <a class="reference internal" href="reference/api.html#api-formfield"><em>FormField</em></a> data is simply
+are two types of fields available, <a class="reference internal" href="reference/api.html#api-formfield"><span>FormField</span></a> and <a class="reference internal" href="reference/api.html#api-model-formfield"><span>ModelFormField</span></a>. For
+<a class="reference internal" href="reference/api.html#api-model-formfield"><span>ModelFormField</span></a> the data is stored in json. For <a class="reference internal" href="reference/api.html#api-formfield"><span>FormField</span></a> data is simply
 returned as a python dictionary (form.cleaned_data)</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
@@ -106,12 +104,16 @@ returned as a python dictionary (form.cleaned_data)</p>
 <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
-    <span class="n">meta_info</span> <span class="o">=</span> <span class="n">ModelFormField</span><span class="p">(</span><span class="n">PersonMetaForm</span><span class="p">)</span>
+    <span class="n">meta_info</span> <span class="o">=</span> <span class="n">ModelFormField</span><span class="p">(</span><span class="n">form</span><span class="o">=</span><span class="n">PersonMetaForm</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Changed in 0.3: You must supply the kwarg argument <cite>form</cite> to <cite>ModelFormField</cite></p>
 </div>
 <p>Which will result in something like this (using the admin)</p>
 <img alt="_images/ss001.png" src="_images/ss001.png" />
-<p>The <a class="reference internal" href="reference/api.html#api-model-formfield"><em>ModelFormField</em></a> is automatically set to <cite>null=True</cite>, <cite>blank=True</cite>, this is
+<p>The <a class="reference internal" href="reference/api.html#api-model-formfield"><span>ModelFormField</span></a> is automatically set to <cite>null=True</cite>, <cite>blank=True</cite>, this is
 because validation is done on the inner form. As a result you will see something like the
 following if we hit save on the change form:</p>
 <img alt="_images/ss002.png" src="_images/ss002.png" />
@@ -142,11 +144,6 @@ unexpected value will be overridden by what the form returns . For example, the
 valid json, but its not really the intension of this app.</p>
 </div>
 </div>
-<div class="section" id="form-within-a-form-within-a-form-within-a-form-within-a-form">
-<h2>Form within a form within a form within a form within a form.....<a class="headerlink" href="#form-within-a-form-within-a-form-within-a-form-within-a-form" title="Permalink to this headline">¶</a></h2>
-<p>Sure its possible..</p>
-<img alt="_images/ss003.png" src="_images/ss003.png" />
-</div>
 </div>
 
 
@@ -156,7 +153,7 @@ valid json, but its not really the intension of this app.</p>
     <div class="footer">
     <p>
       &copy; Copyright 2010, Jose Soares.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
 	</p>
     </div>
       <div class="clearer"></div>
