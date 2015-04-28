@@ -16,6 +16,7 @@ Change Log
 
 * **0.3**
     * Django 1.6/1.7/1.8 compatibility
+    * Python 3.4 compatibility
 
 * **0.2**
     * Fix Django 1.5 install issue
@@ -119,10 +120,3 @@ any valid json:::
 
     We can however, make the field hidden or readonly and use it to supply any
     valid json, but its not really the intension of this app.
-
-Form within a form within a form within a form within a form.....
-=================================================================
-
-Sure its possible..
-
-.. image:: https://github.com/jsoa/django-formfield/raw/master/docs/_images/ss003.png
