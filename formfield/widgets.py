@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import six
-
 from django import forms
 
 
@@ -41,12 +39,12 @@ class FormFieldWidget(forms.MultiWidget):
         """
         This output will yeild all widgets grouped in a un-ordered list
         """
-        ret = ['<ul class="formfield">']
+        ret = [u'<ul class="formfield">']
         for i, field in enumerate(self.fields):
             label = self.format_label(field, i)
             help_text = self.format_help_text(field, i)
-            ret.append('<li>%s %s %s</li>' % (
+            ret.append(u'<li>%s %s %s</li>' % (
                 label, rendered_widgets[i], field.help_text and help_text))
 
-        ret.append('</ul>')
-        return six.u(''.join(ret))
+        ret.append(u'</ul>')
+        return ''.join(ret)
