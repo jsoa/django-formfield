@@ -58,7 +58,7 @@ class FormField(forms.MultiValueField):
         elif callable(form):
             form_class = form()
             self.form = form_class()
-        elif isinstance(form, basestring):
+        elif isinstance(form, six.string_types):
             from django.utils import module_loading
             form_class = module_loading.import_by_path(form)
         self.form = form_class()
