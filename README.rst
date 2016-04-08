@@ -83,7 +83,7 @@ Example
     class Person(models.Model):
         name = CharField(max_length=200)
 
-        meta_info = ModelFormField(PersonMetaForm)
+        meta_info = ModelFormField(form=PersonMetaForm)
 
 Which will result in something like this (using the admin)
 
