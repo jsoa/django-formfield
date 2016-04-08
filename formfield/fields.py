@@ -38,7 +38,7 @@ class JSONField(models.TextField):
 
     def get_db_prep_value(self, value, *args, **kwargs):
 
-        if isinstance(value, str):
+        if isinstance(value, six.string_types):
             return value
 
         return json.dumps(value, **self.dump_kwargs)
