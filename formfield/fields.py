@@ -67,7 +67,6 @@ class FormField(forms.MultiValueField):
         kwargs['widget'] = FormFieldWidget([f for f in self.form])
         kwargs['initial'] = [f.field.initial for f in self.form]
 
-        # kwargs.pop('max_length', None)
         self.max_length = kwargs.pop('max_length', None)
 
         super(FormField, self).__init__(**kwargs)
@@ -112,7 +111,6 @@ class ModelFormField(JSONField):
     """The json backed field we can use in our models"""
 
     def __init__(self, *args, **kwargs):
-    # def __init__(self, form=None, *args, **kwargs):
         """
         This field needs to be nullable and blankable. The supplied form
         will provide the validation.
