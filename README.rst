@@ -17,6 +17,7 @@ Change Log
 * **0.3**
     * Django 1.6/1.7/1.8 compatibility
     * Python 3.4 compatibility
+    * Form argument can now be dynamic
 
 * **0.2**
     * Fix Django 1.5 install issue
