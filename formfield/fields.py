@@ -52,12 +52,23 @@ class FormField(forms.MultiValueField):
     """The form field we can use in forms"""
 
     def __init__(self, form, **kwargs):
-        self.form = form()
+        import inspect
+        if inspect.isclass(form) and issubclass(form, forms.Form):
+            form_class = form
+        elif callable(form):
+            form_class = form()
+            self.form = form_class()
+        elif isinstance(form, basestring):
+            from django.utils import module_loading
+            form_class = module_loading.import_by_path(form)
+        self.form = form_class()
 
         # Set the widget and initial data
         kwargs['widget'] = FormFieldWidget([f for f in self.form])
         kwargs['initial'] = [f.field.initial for f in self.form]
-        kwargs.pop('max_length', None)
+
+        # kwargs.pop('max_length', None)
+        self.max_length = kwargs.pop('max_length', None)
 
         super(FormField, self).__init__(**kwargs)
 
@@ -86,7 +97,7 @@ class FormField(forms.MultiValueField):
                 'Error found in Form Field: Nothing to validate')
 
         data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
-        form = self.form.__class__(data)
+        self.form = form = self.form.__class__(data)
         if not form.is_valid():
             error_dict = list(form.errors.items())
             errors = striptags(
@@ -101,6 +112,7 @@ class ModelFormField(JSONField):
     """The json backed field we can use in our models"""
 
     def __init__(self, *args, **kwargs):
+    # def __init__(self, form=None, *args, **kwargs):
         """
         This field needs to be nullable and blankable. The supplied form
         will provide the validation.
