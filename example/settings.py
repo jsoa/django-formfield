@@ -51,7 +51,12 @@ MEDIA_ROOT = os.path.abspath(os.path.join('media'))
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
+
+STATIC_ROOT = os.path.abspath(os.path.join('static'))#os.path.join(PROJ_ROOT, "static"),
+
 MEDIA_URL = '/static/'
+
+STATIC_URL = '/static-media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -89,6 +94,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.staticfiles',
     'formfield',
     'sample_app',
 )

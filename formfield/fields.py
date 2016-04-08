@@ -28,7 +28,7 @@ class JSONField(models.TextField):
 
     def to_python(self, value):
 
-        if isinstance(value, str):
+        if isinstance(value, six.string_types):
             try:
                 return json.loads(value, **self.load_kwargs)
             except ValueError:
