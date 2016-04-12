@@ -3,11 +3,11 @@
 import json
 import six
 
-from django.db import models
 from django import forms
-from django.core.serializers.json import DjangoJSONEncoder
-from django.template.defaultfilters import striptags
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db import models
+from django.utils.safestring import mark_safe
 
 from .widgets import FormFieldWidget
 
@@ -99,9 +99,9 @@ class FormField(forms.MultiValueField):
         self.form = form = self.form.__class__(data)
         if not form.is_valid():
             error_dict = list(form.errors.items())
-            errors = striptags(
-                ", ".join(["%s (%s)" % (v, k) for k, v in error_dict]))
-            raise ValidationError('Error(s) found: %s' % errors)
+            raise ValidationError([
+                ValidationError(mark_safe('{} {}'.format(
+                    k.title(), v)), code=k) for k, v in error_dict])
 
         # This call will ensure compress is called as expected.
         return super(FormField, self).clean(value)
