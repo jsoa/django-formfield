@@ -14,18 +14,45 @@ class MetaForm(forms.Form):
         required=False, choices=((1, 'Make'), (2, 'Female')))
 
 
+class Coordinates(forms.Form):
+    lng = forms.CharField(required=False)
+    lat = forms.CharField(required=False)
+
+
+class Address(forms.Form):
+    street = forms.CharField()
+    country = forms.CharField(required=False)
+    zipcode = forms.IntegerField(required=False)
+
+    coords = FormField(Coordinates)
+
+
+class PersonForm(forms.Form):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    suffix = forms.CharField(required=False)
+    age = forms.IntegerField(required=False)
+
+    address = FormField(Address)
+
+
 class TestModel(models.Model):
     name = models.CharField(max_length=255)
     meta_data = ModelFormField(MetaForm)
+
+    personal = ModelFormField(PersonForm)
 
 
 class FormFieldTests(TestCase):
     """
     Tests for django-formfield
     """
+    maxDiff = None
+
     def setUp(self):
         self.model = TestModel.objects.create(
-            name="John", meta_data={'age': 32, 'sex': 1})
+            name="John",
+            meta_data={'age': 32, 'sex': 1})
 
     def test_01_get_field(self):
         """Ensure the data is a proper dictionary"""
@@ -104,3 +131,41 @@ class FormFieldTests(TestCase):
         # Ensure the cleaned data is what we expect
         self.assertEqual(form.cleaned_data,
             {'name': 'john', 'meta_data': {'age': 12, 'sex': '1'}})
+
+    def test_05_sub_formfield(self):
+        """Ensure sub formfields validate"""
+        payload = {
+            'first_name': '1',
+            'last_name': '2',
+            'suffix': '3',
+            'age': 4,
+            'address': {
+                'street': '5',
+                'country': '6',
+                'zipcode': 7,
+                'coords': {
+                    'lng': '8',
+                    'lat': '9'
+                    }
+                }
+            }
+        field = FormField(PersonForm)
+        data_to_clean = ['1', '2', '3', '4', ['5', '6', '7', ['8', '9']]]
+        self.assertEqual(field.clean(data_to_clean), payload)
+
+    def test_06_invalidate_required_subform_field(self):
+        """Ensure a proper validation error is raised with sub formfield is
+        invalid (required field)"""
+
+        field = FormField(PersonForm)
+        # Invalidate a required field (street)
+        data_to_clean = ['1', '2', '3', '4', [None, '6', '7', ['8', '9']]]
+        self.assertRaises(ValidationError, field.clean, data_to_clean)
+
+    def test_07_invalidate_int_subform_field(self):
+        """Ensure a proper validation error is raised with sub formfield is
+        invalid (integer only)"""
+        field = FormField(PersonForm)
+        # Invalidate a integer field (zipcode)
+        data_to_clean = ['1', '2', '3', '4', ['5', '6', 'aaa', ['8', '9']]]
+        self.assertRaises(ValidationError, field.clean, data_to_clean)

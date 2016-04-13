@@ -66,6 +66,9 @@ class FormField(forms.MultiValueField):
         # Set the widget and initial data
         kwargs['widget'] = FormFieldWidget([f for f in self.form])
         kwargs['initial'] = [f.field.initial for f in self.form]
+        # The field it self should not be required, this allows us to
+        # have optional fields in a sub form
+        kwargs['required'] = False
 
         self.max_length = kwargs.pop('max_length', None)
 
@@ -79,12 +82,8 @@ class FormField(forms.MultiValueField):
         """
         data = {}
         if data_list:
-            data = dict(
+            return dict(
                 (f.name, data_list[i]) for i, f in enumerate(self.form))
-
-            f = self.form.__class__(data)
-            f.is_valid()
-            return f.cleaned_data
         return data
 
     def clean(self, value):
