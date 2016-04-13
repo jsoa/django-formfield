@@ -9,7 +9,7 @@ API
 FormField
 =========
 
-A form field which accepts a `django.forms.Form` as the first argument.
+A form field which accepts a `django.forms.Form`, a string in the format 'path.to.Class' or a callable that returns a `django.forms.Form` as the first argument.
 :ref:`api_widget_formfield` is used as this fields widget.
 
 Example Usage::
@@ -41,7 +41,7 @@ a model where the data is serialized to json.
 ModelFormField
 ==============
 
-A model form field which accepts a `django.forms.Form` as the first argument.
+A model form field which accepts a `django.forms.Form`, a string in the format 'path.to.Class' or a callable that returns a `django.forms.Form` as the first argument.
 :ref:`api_formfield` is used as form field.
 
 
