@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import json
 import six
 
@@ -60,7 +61,10 @@ class FormField(forms.MultiValueField):
             self.form = form_class()
         elif isinstance(form, six.string_types):
             from django.utils import module_loading
-            form_class = module_loading.import_by_path(form)
+            if hasattr(module_loading, 'import_by_path'):
+                form_class = module_loading.import_by_path(form)
+            else:
+                form_class = module_loading.import_string(form)
         self.form = form_class()
 
         # Set the widget and initial data
