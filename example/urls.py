@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, include
+from django.conf.urls import include, url
 
 from django.contrib import admin
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    (r'^formfield/', include('formfield.urls')),
-    (r'^admin/', include(admin.site.urls)),
-)
+
+urlpatterns = [
+    url(r'^formfield/', include('formfield.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+]
+
 #
 # urlpatterns = urlpatterns + patterns('',
 #     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
