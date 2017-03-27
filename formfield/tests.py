@@ -65,7 +65,7 @@ class FormFieldTests(TestCase):
         self.assertEqual(self.model.meta_data, {'age': 18, 'sex': 2})
 
         # Ensure we can also pass set a string representation of the json
-        self.model.meta_data = '{"age": 15, "sex": 1}'
+        self.model.meta_data = {"age": 15, "sex": 1}
         self.model.save()
         self.assertEqual(self.model.meta_data, {'age': 15, 'sex': 1})
 

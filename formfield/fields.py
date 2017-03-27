@@ -13,7 +13,6 @@ from django.utils.safestring import mark_safe
 from .widgets import FormFieldWidget
 
 
-@six.add_metaclass(models.SubfieldBase)
 class JSONField(models.TextField):
     """
     JSONField is a generic textfield that serializes/unserializes
