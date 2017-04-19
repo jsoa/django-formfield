@@ -5,7 +5,7 @@
 .. _BUILD: http://travis-ci.org/#!/jsoa/django-formfield
 
 
-:Version: 0.3
+:Version: 0.4
 :Docs: https://django-formfield.readthedocs.org/en/latest/
 :Download: http://pypi.python.org/pypi/django-formfield/
 :Source: https://github.com/jsoa/django-formfield
@@ -13,7 +13,10 @@
 ==========
 Change Log
 ==========
-
+* **0.4***
+    * Django 1.9/1.10/1.11 compatibility
+    * Cleaner error messages
+    * Form within a form fixes
 * **0.3**
     * Django 1.6/1.7/1.8 compatibility
     * Python 3.4 compatibility
