@@ -1,0 +1,10 @@
+
+<div class="formfield">
+  <ul>
+    {% for widget in widget.subwidgets %}
+      <li class="formfield-field{% if widget.template_name == 'django/forms/widgets/formfield.html' and widget.label %} ff{% endif %}">
+        {{ widget.label }}{% include widget.template_name %}{{ widget.help_text }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,12 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django import forms
+from django.utils.safestring import mark_safe
 
 
 class FormFieldWidget(forms.MultiWidget):
     """
     This widget will render each field found in the supplied form.
     """
+
+    template_name = 'django/forms/widgets/formfield.html'
+
+    class Media:
+        css = {
+            'all': ('css/formfield.css', )
+        }
+
     def __init__(self, fields, attrs=None):
         self.fields = fields
         # Retreive each field widget for the form
@@ -43,14 +52,19 @@ class FormFieldWidget(forms.MultiWidget):
         """
         Format the label for each field
         """
-        return '<label for="id_formfield_%s" %s>%s</label>' % (
-            counter, field.field.required and 'class="required"', field.label)
+        if field.field.widget.is_hidden:
+            return ''
+        required = field.field.required and 'class="required"' or ''
+        return mark_safe('<label for="id_formfield_%s" %s>%s</label>' % (
+            counter, required, field.label))
 
     def format_help_text(self, field, counter):
         """
         Format the help text for the bound field
         """
-        return '<p class="help">%s</p>' % field.help_text
+        help_text = mark_safe('<p class="help">%s</p>' % field.help_text)
+        is_visible = not field.field.widget.is_hidden
+        return (help_text and is_visible and help_text) or ''
 
     def format_output(self, rendered_widgets):
         """
@@ -65,3 +79,14 @@ class FormFieldWidget(forms.MultiWidget):
 
         ret.append(u'</ul>')
         return ''.join(ret)
+
+    def get_context(self, name, value, attrs):
+        context = super(FormFieldWidget, self).get_context(name, value, attrs)
+
+        # Add in the missing labels and help_text, since we are rendering
+        # a subform, we need to show the field names per input
+        for i, sub in enumerate(context['widget']['subwidgets']):
+            sub['label'] = self.format_label(self.fields[i], i)
+            sub['help_text'] = self.format_help_text(self.fields[i], i)
+
+        return context

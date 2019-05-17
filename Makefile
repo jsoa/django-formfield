@@ -1,2 +1,2 @@
 test:
-	DJANGO_SETTINGS_MODULE=formfield.example.settings django-admin.py test formfield
+	DJANGO_SETTINGS_MODULE=example.settings django-admin.py test formfield

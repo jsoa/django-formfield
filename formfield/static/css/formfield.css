@@ -1,0 +1,26 @@
+div.formfield > ul > li > div.formfield > ul {
+  margin-left: 50px;
+}
+
+div.formfield > ul > li{
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+
+}
+
+div.formfield > ul > li.ff > label {
+  display: block;
+  background-color: #eee;
+  clear: both;
+  width: 100%;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+div.formfield > ul > li > label {
+  display: block;
+  padding: 4px 10px 0 0;
+  float: left;
+  width: 120px;
+}

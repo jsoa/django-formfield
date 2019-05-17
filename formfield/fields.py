@@ -26,6 +26,14 @@ class JSONField(models.TextField):
 
         super(JSONField, self).__init__(*args, **kwargs)
 
+    def from_db_value(self, value, *args, **kwargs):
+        if isinstance(value, six.string_types):
+            try:
+                return json.loads(value, **self.load_kwargs)
+            except (ValueError, ):
+                pass
+        return value
+
     def to_python(self, value):
 
         if isinstance(value, six.string_types):
@@ -51,7 +59,7 @@ class JSONField(models.TextField):
 class FormField(forms.MultiValueField):
     """The form field we can use in forms"""
 
-    def __init__(self, form, **kwargs):
+    def __init__(self, form, *args, **kwargs):
         import inspect
         if inspect.isclass(form) and issubclass(form, forms.Form):
             form_class = form
@@ -75,7 +83,8 @@ class FormField(forms.MultiValueField):
 
         self.max_length = kwargs.pop('max_length', None)
 
-        super(FormField, self).__init__(**kwargs)
+        fields = []
+        super(FormField, self).__init__(fields, *args, **kwargs)
 
         self.fields = [f.field for f in self.form]
 
@@ -97,7 +106,17 @@ class FormField(forms.MultiValueField):
             raise ValidationError(
                 'Error found in Form Field: Nothing to validate')
 
-        data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
+        if isinstance(value, dict):
+            # MultiValueField iterates back through each field. A nested FormField
+            # Will get called twice: once for the parent form and once from the superclass
+            # The second time, the value is a dict, and needs to be re-converted to
+            # avoid errors
+            data = value
+            value_list = [data[x.name] for x in self.form]
+            value = value_list
+        else:
+            data = dict((bf.name, value[i]) for i, bf in enumerate(self.form))
+
         self.form = form = self.form.__class__(data)
         if not form.is_valid():
             error_dict = list(form.errors.items())
@@ -128,10 +147,3 @@ class ModelFormField(JSONField):
         # Need to supply form to FormField
         return super(ModelFormField, self).formfield(form_class=form_class,
             form=self.form, **kwargs)
-
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^formfield\.fields\.JSONField"])
-    add_introspection_rules([], ["^formfield\.fields\.ModelFormField"])
-except ImportError:
-    pass
